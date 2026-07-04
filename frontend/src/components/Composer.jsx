@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowUp } from "lucide-react";
 
-export default function Composer({ draft, onDraftChange, onSend }) {
+export default function Composer({ draft, onDraftChange, onSend, disabled = false }) {
   function handleKeyDown(e) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -17,13 +17,14 @@ export default function Composer({ draft, onDraftChange, onSend }) {
           value={draft}
           onChange={(e) => onDraftChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask anything..."
+          placeholder={disabled ? "Waiting for response..." : "Ask anything..."}
           aria-label="Message"
+          disabled={disabled}
         />
         <button
           className="pa-sendbtn"
           onClick={() => onSend()}
-          disabled={!draft.trim()}
+          disabled={disabled || !draft.trim()}
           aria-label="Send message"
         >
           <ArrowUp size={18} strokeWidth={2.5} />

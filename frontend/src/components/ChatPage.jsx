@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { PERSONAS } from "../data/personas.js";
+import { sendChatMessage } from "../services/api.js";
 import TopBar from "./TopBar.jsx";
 import PersonaBar from "./PersonaBar.jsx";
 import SuggestionChips from "./SuggestionChips.jsx";
@@ -22,6 +23,7 @@ export default function ChatPage({ initialPersonaId, onBack }) {
   const [activePersonaId, setActivePersonaId] = useState(initialPersonaId || PERSONAS[0].id);
   const [messages, setMessages] = useState(initialMessages);
   const [draft, setDraft] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
 
   const activePersona = PERSONAS.find((p) => p.id === activePersonaId);
@@ -29,7 +31,7 @@ export default function ChatPage({ initialPersonaId, onBack }) {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [activeMessages.length, activePersonaId]);
+  }, [activeMessages.length, activePersonaId, isLoading]);
 
   function pushMessage(personaId, msg) {
     setMessages((prev) => ({
@@ -38,23 +40,31 @@ export default function ChatPage({ initialPersonaId, onBack }) {
     }));
   }
 
-  function handleSend(text) {
+  async function handleSend(text) {
     const value = (text ?? draft).trim();
-    if (!value) return;
+    if (!value || isLoading) return;
 
     pushMessage(activePersonaId, { role: "user", text: value, time: timeNow() });
     setDraft("");
+    setIsLoading(true);
 
-    // Replace this block with your real AI call (e.g. fetch to your backend
-    // or the Anthropic API), keyed on `activePersonaId` to pick the right
-    // system prompt / persona voice.
-    window.setTimeout(() => {
+    try {
+      const reply = await sendChatMessage(activePersonaId, value);
       pushMessage(activePersonaId, {
         role: "persona",
-        text: `${activePersona.name.split(" ")[0]} is thinking about: "${value}"`,
+        text: reply,
         time: timeNow(),
       });
-    }, 700);
+    } catch (err) {
+      pushMessage(activePersonaId, {
+        role: "persona",
+        text: err.message || "Something went wrong. Please try again.",
+        time: timeNow(),
+        isError: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleNewChat() {
@@ -77,13 +87,18 @@ export default function ChatPage({ initialPersonaId, onBack }) {
       <PersonaBar persona={activePersona} onNewChat={handleNewChat} />
 
       <main className="pa-chatarea" ref={scrollRef}>
-        {activeMessages.length <= 1 && (
+        {activeMessages.length <= 1 && !isLoading && (
           <SuggestionChips prompts={activePersona.prompts} onSelect={handleSend} />
         )}
-        <MessageList messages={activeMessages} persona={activePersona} />
+        <MessageList messages={activeMessages} persona={activePersona} isLoading={isLoading} />
       </main>
 
-      <Composer draft={draft} onDraftChange={setDraft} onSend={handleSend} />
+      <Composer
+        draft={draft}
+        onDraftChange={setDraft}
+        onSend={handleSend}
+        disabled={isLoading}
+      />
     </div>
   );
 }
