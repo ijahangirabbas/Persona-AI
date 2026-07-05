@@ -7,7 +7,7 @@ export const PERSONAS = [
   {
     id: "hitesh",
     name: "Hitesh Choudhary",
-    title: "Full Stack Developer & Educator",
+    title: "Mentor & Tech Educator",
     initials: "HC",
     color: "#ff5722",
     online: true,
@@ -25,14 +25,14 @@ export const PERSONAS = [
   {
     id: "piyush",
     name: "Piyush Garg",
-    title: "Software Engineer & Content Creator",
+    title: "Principal Engineer & Tech Educator",
     initials: "PG",
     color: "#6c5ce7",
     online: true,
     photo: piyushPhoto,
     traits: ["Principal Engineer", "Tech Educator", "Docker Advocate"],
     greeting:
-      "Hey! Aaj kuch real build karte hain? Stack, systems, ya fast shipping — kya discuss karein?",
+      "Hey! Aaj kuch real build karte hain? Stack, systems, ya fast shipping, kya discuss karein?",
     prompts: [
       "How do I design a scalable backend?",
       "Docker vs Kubernetes, explain simply",
