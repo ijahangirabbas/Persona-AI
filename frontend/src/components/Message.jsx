@@ -1,7 +1,10 @@
 import React from "react";
 import Avatar from "./Avatar.jsx";
+import MarkdownContent from "./MarkdownContent.jsx";
 
 export default function Message({ role, text, time, persona, isError = false }) {
+  const showMarkdown = role === "persona" && !isError;
+
   return (
     <div className={`pa-message pa-message--${role}${isError ? " pa-message--error" : ""}`}>
       {role === "persona" && (
@@ -13,7 +16,9 @@ export default function Message({ role, text, time, persona, isError = false }) 
         />
       )}
       <div className="pa-message-body">
-        <div className="pa-message-bubble">{text}</div>
+        <div className="pa-message-bubble">
+          {showMarkdown ? <MarkdownContent content={text} /> : text}
+        </div>
         <span className="pa-message-time">{time}</span>
       </div>
     </div>

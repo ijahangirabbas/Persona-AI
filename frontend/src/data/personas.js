@@ -1,3 +1,6 @@
+import hiteshPhoto from "../assets/hitesh.jpeg";
+import piyushPhoto from "../assets/piyush.jpg";
+
 // Add or edit personas here — every other component reads from this list,
 // so a new entry here is all it takes to add a new persona to the app.
 export const PERSONAS = [
@@ -8,7 +11,7 @@ export const PERSONAS = [
     initials: "HC",
     color: "#ff5722",
     online: true,
-    photo: "/src/assets/hitesh.jpeg",
+    photo: hiteshPhoto,
     traits: ["Calm Mentor", "Industry Veteran", "Lifelong Learner"],
     greeting:
       "Haan ji, kaise hain aap sabhi? Swagat hai aap sabhi ka chai aur code mein!",
@@ -26,7 +29,7 @@ export const PERSONAS = [
     initials: "PG",
     color: "#6c5ce7",
     online: true,
-    photo: "/src/assets/piyush.jpg",
+    photo: piyushPhoto,
     traits: ["Principal Engineer", "Tech Educator", "Docker Advocate"],
     greeting:
       "Hey! Ready to build something real today? Let's talk stack, systems, or shipping fast.",

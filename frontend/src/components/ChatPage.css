@@ -321,6 +321,144 @@
 
 .pa-message--persona .pa-message-bubble {
   border-bottom-left-radius: 6px;
+  max-width: min(100%, 680px);
+}
+
+/* ---- Markdown in AI replies ----------------------------------------- */
+.pa-markdown {
+  font-size: 14.5px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+.pa-markdown > :first-child {
+  margin-top: 0;
+}
+
+.pa-markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.pa-markdown p {
+  margin: 0 0 0.85em;
+}
+
+.pa-markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.pa-markdown strong {
+  font-weight: 600;
+  color: var(--pa-text);
+}
+
+.pa-markdown em {
+  font-style: italic;
+  color: var(--pa-text-muted);
+}
+
+.pa-markdown h1,
+.pa-markdown h2,
+.pa-markdown h3,
+.pa-markdown h4 {
+  margin: 1.1em 0 0.55em;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--pa-text);
+}
+
+.pa-markdown h1:first-child,
+.pa-markdown h2:first-child,
+.pa-markdown h3:first-child,
+.pa-markdown h4:first-child {
+  margin-top: 0;
+}
+
+.pa-markdown h1 {
+  font-size: 1.15em;
+}
+
+.pa-markdown h2 {
+  font-size: 1.08em;
+}
+
+.pa-markdown h3,
+.pa-markdown h4 {
+  font-size: 1em;
+}
+
+.pa-markdown ul,
+.pa-markdown ol {
+  margin: 0.5em 0 0.85em;
+  padding-left: 1.35em;
+}
+
+.pa-markdown li {
+  margin: 0.35em 0;
+}
+
+.pa-markdown li::marker {
+  color: var(--pa-accent);
+}
+
+.pa-markdown ul ul,
+.pa-markdown ol ol,
+.pa-markdown ul ol,
+.pa-markdown ol ul {
+  margin-bottom: 0.25em;
+}
+
+.pa-markdown blockquote {
+  margin: 0.75em 0;
+  padding: 0.55em 0.9em;
+  border-left: 3px solid var(--pa-accent);
+  background: var(--pa-accent-soft);
+  border-radius: 0 8px 8px 0;
+  color: var(--pa-text-muted);
+}
+
+.pa-markdown hr {
+  border: none;
+  border-top: 1px solid var(--pa-border);
+  margin: 1em 0;
+}
+
+.pa-markdown a {
+  color: #a29bfe;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pa-markdown a:hover {
+  color: #c4b5fd;
+}
+
+.pa-md-inline-code {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.12em 0.38em;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--pa-border);
+}
+
+.pa-md-pre {
+  margin: 0.75em 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #0d0d12;
+  border: 1px solid var(--pa-border);
+  overflow-x: auto;
+}
+
+.pa-md-pre code {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.84em;
+  line-height: 1.55;
+  color: #e8e6f0;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .pa-message-time {
