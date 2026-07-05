@@ -32,7 +32,7 @@ export const PERSONAS = [
     photo: piyushPhoto,
     traits: ["Principal Engineer", "Tech Educator", "Docker Advocate"],
     greeting:
-      "Hey! Ready to build something real today? Let's talk stack, systems, or shipping fast.",
+      "Hey! Aaj kuch real build karte hain? Stack, systems, ya fast shipping — kya discuss karein?",
     prompts: [
       "How do I design a scalable backend?",
       "Docker vs Kubernetes, explain simply",

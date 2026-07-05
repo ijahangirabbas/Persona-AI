@@ -6,6 +6,7 @@ export const generateResponse = async (messages) => {
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages,
+      temperature: 0.65,
     });
 
     return completion.choices[0].message.content;
