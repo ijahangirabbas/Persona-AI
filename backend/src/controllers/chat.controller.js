@@ -1,46 +1,20 @@
-import { generateResponse } from "../services/ai.service.js";
-import { buildPrompt } from "../services/prompt.service.js";
-import personas from "../personas/index.js";
+import { processChat } from "../handlers/chat.js";
+import { parseBody } from "../lib/parse-body.js";
+import { HttpError } from "../lib/http-error.js";
 
 export const chat = async (req, res) => {
   try {
-    const { persona, message } = req.body;
-
-    if (!persona || !personas[persona]) {
-      return res.status(400).json({
-        success: false,
-        message: "A valid persona is required.",
-      });
-    }
-
-    if (!message || typeof message !== "string" || !message.trim()) {
-      return res.status(400).json({
-        success: false,
-        message: "Message is required.",
-      });
-    }
-
-    const trimmedMessage = message.trim();
-    if (trimmedMessage.length > 4000) {
-      return res.status(400).json({
-        success: false,
-        message: "Message is too long (max 4000 characters).",
-      });
-    }
-
-    const messages = buildPrompt(persona, trimmedMessage);
-    const response = await generateResponse(messages);
-
-    res.json({
-      success: true,
-      response,
-    });
+    const response = await processChat(await parseBody(req));
+    res.json({ success: true, response });
   } catch (error) {
     console.error("[chat]", error);
 
-    res.status(500).json({
-      success: false,
-      message: error.message || "Failed to generate response.",
-    });
+    const status = error instanceof HttpError ? error.status : 500;
+    const message =
+      error instanceof HttpError
+        ? error.message
+        : error.message || "Failed to generate response.";
+
+    res.status(status).json({ success: false, message });
   }
 };

@@ -16,7 +16,7 @@ export const PERSONAS = [
       "How do I start learning JavaScript?",
       "Explain async/await in simple terms",
       "What is system design?",
-      "Best resources to learn React?",
+      "How to become a better developer?",
     ],
   },
   {
